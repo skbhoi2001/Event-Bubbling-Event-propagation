@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>User Details</title>
+</head>
+<body>
+    <div id="input">
+        <input type="text" id="name" placeholder="Name">
+        <input type="tel" id="phones" placeholder="phones number" maxlength="10">
+        <button id="add">Add User</button>
+    </div>
+    <div id="display"></div>
+
+    <script type="text/javascript">
+        const container = document.getElementById('display')
+
+        window.addEventListener('load', ()=>{
+            const btn = document.getElementById('add')
+            btn.addEventListener('click', addUser)
+        })
+
+        function addUser() {
+            const name = document.getElementById('name').value;
+            const phones = document.getElementById('phones').value;
+            var userData = new Data(name, phones);
+            userData.showData();
+        }
+
+        class Data {
+            constructor(name, phones){
+                this.name = name;
+                this.phones = phones;
+            }
+            showData (){       
+                var card = document.createElement('div');
+                
+                var p1 = document.createElement('p');
+                p1.textContent = this.name
+
+                var butn = document.createElement('button');
+                butn.textContent = 'Show'
+                var p2 = document.createElement('p');
+                p2.textContent = this.phones
+                p2.style.display = 'none';
+                butn.addEventListener('click', ()=>{
+                    if(p2.style.display == 'none'){
+                        event.stopImmediatePropagation();
+                        p2.style.display = 'block';
+                        butn.textContent = 'hide'
+                    }
+                    else{
+                        event.stopImmediatePropagation();
+                        p2.style.display = 'none';
+                        butn.textContent = 'Show'
+                    }
+                })
+                card.append(p1, butn, p2);
+                container.append(card);
+            }
+        }
+    </script>
+</body>
+</html>
